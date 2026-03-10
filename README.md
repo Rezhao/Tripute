@@ -2,6 +2,9 @@
 
 Collaborative trip planning MVP for groups to collect ideas, vote, and generate a shared itinerary.
 
+## Deployed Link
+https://tripute.vercel.app/
+
 ## Tech stack
 
 - Frontend: React, Vite, TailwindCSS, React Router, Zustand
