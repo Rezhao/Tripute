@@ -6,9 +6,7 @@ export default function CreateTripPage() {
   const navigate = useNavigate();
   const { createTrip, loading, error } = useTripStore();
   const [form, setForm] = useState({
-    name: "",
-    startDate: "",
-    endDate: ""
+    name: ""
   });
 
   const handleChange = (event) => {
@@ -38,24 +36,6 @@ export default function CreateTripPage() {
             required
             className="rounded-2xl border border-slate-200 px-4 py-3 text-sm"
           />
-          <div className="grid gap-4 md:grid-cols-2">
-            <input
-              type="date"
-              name="startDate"
-              value={form.startDate}
-              onChange={handleChange}
-              required
-              className="rounded-2xl border border-slate-200 px-4 py-3 text-sm"
-            />
-            <input
-              type="date"
-              name="endDate"
-              value={form.endDate}
-              onChange={handleChange}
-              required
-              className="rounded-2xl border border-slate-200 px-4 py-3 text-sm"
-            />
-          </div>
           <button
             type="submit"
             disabled={loading}

@@ -25,7 +25,7 @@ export default function TripList({ trips }) {
             </span>
           </div>
           <p className="mt-3 text-sm text-slate-500">
-            {trip.startDate} → {trip.endDate}
+            {trip.startDate && trip.endDate ? `${trip.startDate} → ${trip.endDate}` : "Dates TBD"}
           </p>
         </Link>
       ))}

@@ -42,6 +42,22 @@ export const useTripStore = create((set, get) => ({
     }
   },
 
+  updateTripDates: async (tripId, payload) => {
+    set({ loading: true, error: null });
+    try {
+      const trip = await api.updateTripDates(tripId, payload);
+      set((state) => ({
+        currentTrip: state.currentTrip?.id === trip.id ? trip : state.currentTrip,
+        trips: state.trips.map((candidate) => (candidate.id === trip.id ? trip : candidate)),
+        loading: false
+      }));
+      return trip;
+    } catch (error) {
+      set({ error: error.message, loading: false });
+      throw error;
+    }
+  },
+
   joinTrip: async (tripId) => {
     try {
       await api.joinTrip(tripId);
@@ -74,10 +90,12 @@ export const useTripStore = create((set, get) => ({
 
   voteIdea: async (ideaId, value) => {
     const previous = get().ideas;
+    const priorVote = previous.find((idea) => idea.id === ideaId)?.userVote || 0;
+    const delta = value - priorVote;
     set({
       ideas: previous.map((idea) =>
         idea.id === ideaId
-          ? { ...idea, voteScore: idea.voteScore + value, userVote: value }
+          ? { ...idea, voteScore: idea.voteScore + delta, userVote: value }
           : idea
       )
     });

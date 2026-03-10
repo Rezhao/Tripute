@@ -3,10 +3,16 @@ import cors from "cors";
 import { ZodError } from "zod";
 import { tripsRouter } from "./routes/trips.js";
 import { ideasRouter } from "./routes/ideas.js";
+import { HttpError } from "./services/httpError.js";
 
 const app = express();
 
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "http://127.0.0.1:5173"],
+    credentials: true
+  })
+);
 app.use(express.json());
 
 app.get("/api/health", (req, res) => {
@@ -21,12 +27,16 @@ app.use((err, req, res, next) => {
     return res.status(400).json({ message: err.errors.map((e) => e.message).join(", ") });
   }
 
+  if (err instanceof HttpError) {
+    return res.status(err.status).json({ message: err.message });
+  }
+
   if (err.message?.includes("x-user-id")) {
     return res.status(400).json({ message: err.message });
   }
 
   console.error(err);
-  res.status(500).json({ message: "Server error" });
+  res.status(500).json({ message: err.message || "Unexpected error" });
 });
 
 const PORT = process.env.PORT || 3001;

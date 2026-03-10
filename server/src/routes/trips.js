@@ -3,6 +3,7 @@ import {
   listTrips,
   createTrip,
   getTrip,
+  updateTripDates,
   joinTrip,
   listIdeas,
   createIdea,
@@ -15,6 +16,7 @@ export const tripsRouter = Router();
 tripsRouter.get("/", listTrips);
 tripsRouter.post("/", createTrip);
 tripsRouter.get("/:id", getTrip);
+tripsRouter.patch("/:id", updateTripDates);
 tripsRouter.post("/:id/join", joinTrip);
 tripsRouter.get("/:id/ideas", listIdeas);
 tripsRouter.post("/:id/ideas", createIdea);

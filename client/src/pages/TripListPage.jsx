@@ -17,12 +17,17 @@ export default function TripListPage() {
           <p className="text-sm font-semibold text-slate-500">Tripute</p>
           <h1 className="text-3xl font-semibold text-ink">Your trips</h1>
         </div>
-        <Link
-          to="/trips/new"
-          className="rounded-full bg-ocean px-5 py-3 text-sm font-semibold text-white shadow-card"
-        >
-          Create new trip
-        </Link>
+        <div className="flex flex-wrap items-center gap-3">
+          <Link to="/" className="rounded-full bg-white/80 px-5 py-3 text-sm font-semibold text-ink shadow-card">
+            Home
+          </Link>
+          <Link
+            to="/trips/new"
+            className="rounded-full bg-ocean px-5 py-3 text-sm font-semibold text-white shadow-card"
+          >
+            Create new trip
+          </Link>
+        </div>
       </header>
 
       {loading ? <p className="text-sm">Loading trips...</p> : null}
